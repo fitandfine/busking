@@ -9,78 +9,88 @@
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
-            color: white;
-            overflow-x: hidden;
-            background-color: #141414;
+            color: #e0e0e0;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             animation: backgroundPulse 10s infinite;
         }
 
         .header {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 10px 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            width: 100%;
             text-align: center;
             position: fixed;
-            width: 100%;
             top: 0;
             z-index: 1000;
             border-bottom: 2px solid #0288d1;
+            font-family: 'Courier New', Courier, monospace;
         }
 
-        .header h4 {
-            transition: color 0.3s;
-            cursor: pointer;
-        }
-
-        .header h4:hover {
-            color: #e91e63;
-        }
-
-        .date-time {
+        .header .date-time {
             font-size: 1.2em;
             color: #d0faf2;
-            animation: fadeIn 2s ease-out;
         }
 
-        .welcome-message {
-            font-size: 1.8em;
-            margin: 10px 0;
+        .header .welcome-message {
+            font-size: 1.4em;
+            color: #e91e63;
+            font-weight: bold;
             animation: fadeIn 3s infinite alternate;
         }
 
         .container {
+            margin-top: 120px;
             text-align: center;
-            padding: 100px 20px 20px;
+            max-width: 800px;
             animation: fadeIn 2s ease-out;
         }
 
-        .carousel {
-            width: auto;
-            height: 400px;
-            margin: 20px auto;
+        .photo-container {
+            width: 200px;
+            height: 200px;
             overflow: hidden;
-            border-radius: 10px;
-            animation: slideIn 2s ease-out;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 3px solid #0288d1;
+            animation: zoomIn 2s ease-out;
         }
 
-        .carousel img {
+        .photo-container img {
+            width: 100%;
             height: 100%;
-            display: block;
-            border-radius: 10px;
-            margin: 0 auto;
+            object-fit: cover;
         }
 
-        .personal-info {
+        .info-section h1 {
+            font-size: 2.2em;
+            color: #ffcc00;
+            margin: 10px 0;
+            font-family: 'Lucida Console', Courier, monospace;
+        }
+
+        .info-section h2 {
             font-size: 1.5em;
-            margin: 20px 0;
-            animation: fadeIn 2s ease-out;
+            color: #e0e0e0;
+            margin: 10px 0;
+            font-style: italic;
+            font-family: 'Trebuchet MS', sans-serif;
+        }
+
+        .info-section p {
+            font-size: 1em;
+            color: #b0bec5;
+            margin: 10px 0;
         }
 
         .buttons-section {
-            margin-top: 20px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 15px;
+            margin-top: 20px;
             animation: slideInFromRight 2s ease-out;
         }
 
@@ -88,57 +98,22 @@
             padding: 15px 25px;
             font-size: 1em;
             color: white;
-            background-color: #008080;
+            background-color: #3949ab;
             border: none;
-            border-radius: 50px;
+            border-radius: 10px;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s;
-            flex: 0 0 calc(50% - 20px);
         }
 
         .buttons-section button:hover {
-            background-color: #ff4081;
-            transform: scale(1.2);
+            background-color: #8e24aa;
+            transform: scale(1.1);
         }
 
-        .popup {
-            position: fixed;
-            display: none;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-        }
-
-        .popup-content {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            max-width: 90%;
-            animation: fadeIn 0.5s ease-in-out;
-            color: #333;
-            font-size: 1.2em;
-            position: relative;
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-            color: #e74c3c;
-            transition: transform 0.3s, color 0.3s;
-        }
-
-        .close-btn:hover {
-            transform: rotate(90deg);
-            color: #c0392b;
+        /* Keyframes */
+        @keyframes backgroundPulse {
+            0%, 100% { background-color: #0f2027; }
+            50% { background-color: #203a43; }
         }
 
         @keyframes fadeIn {
@@ -146,52 +121,44 @@
             to { opacity: 1; }
         }
 
-        @keyframes slideIn {
-            from { transform: translateY(100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        @keyframes slideInFromRight {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        @keyframes backgroundPulse {
-            0% { background-color: #141414; }
-            50% { background-color: #1c1c1c; }
-            100% { background-color: #141414; }
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
-    <!-- Header with Date and Time -->
     <div class="header">
         <div class="date-time" id="date-time"></div>
-        <h4><div class="welcome-message" id="welcome-message"></div></h4>
+        <div class="welcome-message" id="welcome-message">Hello! I'm Anup, from Nepal, exploring life in New Zealand!</div>
     </div>
 
     <div class="container">
-        <div class="carousel" id="carousel">
-            <img src="images/qr.png" alt="QR Code">
+        <!-- Profile Photo -->
+        <div class="photo-container">
+            <img src="my_image.jpg" alt="Anup's Photo">
         </div>
 
-        <!-- Personal Info -->
-        <div class="personal-info">
+        <!-- Personal Info Section -->
+        <div class="info-section">
             <h1>Anup Chapain</h1>
-            <h2>Contact Me</h2>
+            <h2>Aspiring Software Engineer with a Creative Mind</h2>
+            <p>Currently completing my Master’s in Software Engineering at Yoobee College of Creative Innovations, City Road Campus, Auckland. Awaiting my final result, I'm thrilled to combine my passions for <strong>arts, literature, music, and technology</strong> in my journey!</p>
         </div>
 
-        <!-- Buttons Section -->
+        <!-- Contact Buttons Section -->
         <div class="buttons-section">
             <button onclick="window.open('tel:+64273276110', '_self')">&#x1F4DE; Call</button>
             <button onclick="window.open('sms:+64273276110', '_self')">&#x1F4F1; SMS</button>
-            <button onclick="sendWhatsApp()">&#x1F4AC; WhatsApp Message</button>
-            <button onclick="sendEmail()">&#x2709; Send Email</button>
+            <button onclick="sendWhatsApp()">&#x1F4AC; WhatsApp</button>
+            <button onclick="sendEmail()">&#x2709; Email</button>
             <button onclick="window.open('https://www.instagram.com/anupcp/', '_blank')">&#x1F4F7; Instagram</button>
             <button onclick="downloadVCard()">&#x1F4C1; Save Contact</button>
-        </div>
-    </div>
-
-    <!-- Popup Template -->
-    <div class="popup" id="generic-popup">
-        <div class="popup-content">
-            <span class="close-btn" onclick="hidePopup('generic-popup')">&times;</span>
-            <img id="popup-image" src="qr.png" alt="QR Code" style="max-width: 300px;">
         </div>
     </div>
 
@@ -207,12 +174,12 @@
 
         // WhatsApp Function
         function sendWhatsApp() {
-            window.open("https://wa.me/64273276110?text=Hello%20Anup%20Chapain,%20I%20found%20your%20contact%20page", "_blank");
+            window.open("https://wa.me/64273276110?text=Hello%20Anup,%20I%20found%20your%20contact%20page", "_blank");
         }
 
         // Send Email Function
         function sendEmail() {
-            window.location.href = "mailto:emailofanup@gmail.com?subject=from your contact page";
+            window.location.href = "mailto:emailofanup@gmail.com?subject=Contact From Your Page";
         }
 
         // Download vCard
